@@ -3,7 +3,11 @@ import Button from '@atlaskit/button';
 import Card from '../component/Card';
 import AddNew from '../component/AddNew';
 import { v4 } from 'uuid';
+
+
 export default function Body(props) {
+  
+  const notify = () => setRender(!render);
   const [render,setRender] = useState(true);
   const [data,setData] = useState([]);
   const [active,setActive] = useState();
@@ -80,6 +84,7 @@ export default function Body(props) {
 
   return (
       <>
+ 
     <div className='d-flex'>
     <div style={{width : "200px"}}>
     <Button onClick={onHandleChangeAllTask} appearance="warning" shouldFitContainer>All Task</Button>
@@ -87,7 +92,7 @@ export default function Body(props) {
     <Button onClick={onHandleChangeDoingTask} appearance="warning" shouldFitContainer>Doing Task</Button>
     <Button onClick={onHandleChangeDoneTask} appearance="warning" shouldFitContainer>Done Task</Button>
     </div>
-    <AddNew click={props.click}  display2={(props.status) ? "none" : "block"}/>
+    <AddNew click={props.click} click2={notify} display2={(props.status) ? "none" : "block"}/>
     <div className='flex-wrap p-3 gap-3 w-75' style={{display : (props.status) ? "flex" : "none"}}>
     {
       data.map((e,index) => <Card key={v4()} click={() => onHandleChangeStatus(e,index)} status2={e.status2} title={e.title} Creator={e.Creator} Description={e.Description}/>
@@ -101,6 +106,7 @@ export default function Body(props) {
 
 <Button onClick={onHandleNextClick}>Next</Button>
 </div>
+
     </>
   )
 }

@@ -9,7 +9,6 @@ function App() {
   const [name , setName] = useState('Create New Task');
   const onHandleClickAdd = () => {
     setStatus(!status)
-    
     if(name === 'Back'){
       setName('Create New Task')
     }
