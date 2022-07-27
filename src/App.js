@@ -6,12 +6,20 @@ import Header from './layout/Header';
 
 function App() {
   const [status , setStatus] = useState(true);
+  const [name , setName] = useState('Create New Task');
   const onHandleClickAdd = () => {
     setStatus(!status)
+    
+    if(name === 'Back'){
+      setName('Create New Task')
+    }
+    else {
+      setName('Back');
+    }
   }
   return (
    <>
-<Header click ={onHandleClickAdd}/>
+<Header name={name} click ={onHandleClickAdd}/>
 <Body status = {status}/>
    </>
   );
