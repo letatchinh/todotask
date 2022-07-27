@@ -8,7 +8,6 @@ export default function AddNew(props) {
   const [Creator,setCreator] = useState('');
   const [Description,setDescription] = useState('');
   let status2 = "New"
-
     useEffect(() => {
       localStorage.setItem('data', JSON.stringify(data));
     }, [data]);

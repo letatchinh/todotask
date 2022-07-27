@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@atlaskit/button';
-import Card from './Card';
-import AddNew from './AddNew';
+import Card from '../component/Card';
+import AddNew from '../component/AddNew';
 import { v4 } from 'uuid';
 export default function Body(props) {
   const [render,setRender] = useState(true);

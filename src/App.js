@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import './App.css';
-import Body from './component/Body';
-import Header from './component/Header';
+import Body from './layout/Body';
+
+import Header from './layout/Header';
+
 function App() {
   const [status , setStatus] = useState(true);
   const onHandleClickAdd = () => {
@@ -11,7 +13,6 @@ function App() {
    <>
 <Header click ={onHandleClickAdd}/>
 <Body status = {status}/>
-
    </>
   );
 }
