@@ -10,9 +10,9 @@ export default function Search() {
     console.log(text);
     console.log(data);
     const temp = data.filter((e) => e.title === text)
-  //  localStorage.setItem('data',JSON.stringify(temp))
+   localStorage.setItem('dataTemp',JSON.stringify(temp))
   console.log(temp);
-   setStatus(!status)
+ 
   };
   const changetext = (e) => {
     setText(e.target.value);

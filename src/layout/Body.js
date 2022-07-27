@@ -10,14 +10,10 @@ export default function Body(props) {
   const [page,setPage] = useState(data.length);
   let tempData = (localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : [])
   let limit =  12;
-  let limitPage = 4;
-  console.log("data",page);
   let pageNav = [];
   for(let i = 1 ; i <= page ; i++){
     pageNav.push(i)
   }
-  // setTempPage(pageNav)
-  const [tempPage,setTempPage] = useState(pageNav);
   console.log("page",pageNav);
   const onHandleChangeStatus = (e,index) => {
     const temp = e;
@@ -37,6 +33,7 @@ export default function Body(props) {
   }
   tempData.splice(index,1,temp);
     localStorage.setItem('data',JSON.stringify(tempData))
+    // localStorage.setItem('dataTemp',JSON.stringify(tempData))
     setRender(!render)
   }
   const onHandleChangePage = (e) => {
@@ -98,7 +95,7 @@ export default function Body(props) {
     }
     </div>
     </div>
-  <div className='text-center'>  
+  <div className='text-center' style={{display : (props.status) ? "block" : "none"}}>  
     <Button onClick={onHandlePreClick}>Pre</Button>
  { pageNav.map((e,index) =>  <Button style={{background : (index === active ) ? "red" : "none"}} onClick={() =>onHandleChangePage(index)} className='mx-2' key={v4()}>{e}</Button>)}
 

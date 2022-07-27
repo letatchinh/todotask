@@ -12,8 +12,9 @@ export default function AddNew(props) {
       localStorage.setItem('data', JSON.stringify(data));
     }, [data]);
   const onHandleClickSave = () => {
-    const tempData = [...data,{title,Creator,Description,status2}];
+    const tempData = [...data,{title,Creator,Description,status2,id : data.length}];
     setData(tempData);
+    
     
   }
   const handleChangeTitle = event => {
@@ -36,7 +37,10 @@ export default function AddNew(props) {
 <div className='d-flex my-2'>
     <span style={{width : "150px"}}>Description</span><Textfield value={Description} onChange={handleChangeDescription}/>
 </div>
-<Button  onClick={onHandleClickSave}>Add</Button>
+<Button  onClick={e => {
+  onHandleClickSave();
+  props.click()
+}}>Add</Button>
 </div>
   )
 }

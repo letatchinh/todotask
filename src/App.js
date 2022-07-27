@@ -20,7 +20,7 @@ function App() {
   return (
    <>
 <Header name={name} click ={onHandleClickAdd}/>
-<Body status = {status}/>
+<Body click={onHandleClickAdd} status = {status}/>
    </>
   );
 }
