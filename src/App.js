@@ -6,6 +6,7 @@ import Header from './layout/Header';
 
 function App() {
   const [status , setStatus] = useState(true);
+  const [status2 , setStatus2] = useState(true);
   const [name , setName] = useState('Create New Task');
   const onHandleClickAdd = () => {
     setStatus(!status)
@@ -16,10 +17,13 @@ function App() {
       setName('Back');
     }
   }
+  const reRender = () => {
+    setStatus2(!status2)
+  }
   return (
    <>
-<Header name={name} click ={onHandleClickAdd}/>
-<Body click={onHandleClickAdd} status = {status}/>
+<Header name={name} reRender={reRender} click ={onHandleClickAdd}/>
+<Body  click={onHandleClickAdd} status = {status}/>
    </>
   );
 }

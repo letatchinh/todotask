@@ -3,24 +3,22 @@ import Button from '@atlaskit/button';
 import Card from '../component/Card';
 import AddNew from '../component/AddNew';
 import { v4 } from 'uuid';
-
-
 export default function Body(props) {
-  
+  console.log("renderBody")
   const notify = () => setRender(!render);
   const [render,setRender] = useState(true);
   const [data,setData] = useState([]);
   const [active,setActive] = useState();
   const [page,setPage] = useState(data.length);
+  const [dataShow,setDataShow] = useState([])
   let tempData = (localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : [])
-  let limit =  12;
+  let limit =  4;
   let pageNav = [];
   for(let i = 1 ; i <= page ; i++){
     pageNav.push(i)
   }
-  console.log("page",pageNav);
-  const onHandleChangeStatus = (e,index) => {
-    const temp = e;
+  const onHandleChangeStatus = (e) => {
+    let temp = e;
   switch (temp.status2) {
     case  "Doing":
       temp.status2 = 'Done'
@@ -31,26 +29,22 @@ export default function Body(props) {
     case  "New":
       temp.status2 = 'Doing'
       break;
-  
     default:
       break;
   }
-  tempData.splice(index,1,temp);
-    localStorage.setItem('data',JSON.stringify(tempData))
-    // localStorage.setItem('dataTemp',JSON.stringify(tempData))
-    setRender(!render)
+  tempData.splice(temp.id,1,temp);
+    localStorage.setItem('data',JSON.stringify(tempData));
+   localStorage.setItem('dataTemp',JSON.stringify(dataShow));
+   setData(tempData)
   }
   const onHandleChangePage = (e) => {
     const start = limit * e;
     const end = start + limit ;
-    setData(tempData.slice(start,end));
+    setDataShow(tempData.slice(start,end));
     setActive(e);
-    // if(e === tempPage.length - 1){
-    //   setTempPage(pageNav.slice(e-1,limitPage + e))
-    // }
   }
   const onHandleChangeNewTask = () => {
-    setData(tempData.filter((e) => e.status2 === "New"))
+    setDataShow(tempData.filter((e) => e.status2 === "New"))
   }
   const onHandlePreClick = () => {
     if(active === 0) return
@@ -63,17 +57,20 @@ export default function Body(props) {
 
   }
   const onHandleChangeAllTask = () => {
-    setData(tempData)
+    setDataShow(tempData)
    }
   const onHandleChangeDoingTask = () => {
-    setData(tempData.filter((e) => e.status2 === "Doing"))
+    setDataShow(tempData.filter((e) => e.status2 === "Doing"))
   }
   const onHandleChangeDoneTask = () => {
-    setData(tempData.filter((e) => e.status2 === "Done"))
+    setDataShow(tempData.filter((e) => e.status2 === "Done"))
   }
   useEffect(() => {
+    setDataShow((localStorage.getItem('dataTemp') ? JSON.parse(localStorage.getItem('dataTemp')) : []))
+  },[localStorage.getItem('dataTemp')])
+  useEffect(() => {
     setData((localStorage.getItem('data')) ?  JSON.parse(localStorage.getItem('data')) : []);
-    setData(tempData.slice(0,limit))
+    setDataShow(tempData.slice(0,limit))
     // setActive(0)
     // if(pageNav.length > limitPage){
     //   setTempPage(pageNav.slice(0,limitPage))
@@ -82,6 +79,7 @@ export default function Body(props) {
     console.log("load");
   }, [localStorage.getItem('data')]);
 
+ 
   return (
       <>
  
@@ -95,7 +93,7 @@ export default function Body(props) {
     <AddNew click={props.click} click2={notify} display2={(props.status) ? "none" : "block"}/>
     <div className='flex-wrap p-3 gap-3 w-75' style={{display : (props.status) ? "flex" : "none"}}>
     {
-      data.map((e,index) => <Card key={v4()} click={() => onHandleChangeStatus(e,index)} status2={e.status2} title={e.title} Creator={e.Creator} Description={e.Description}/>
+      dataShow.map((e,index) => <Card key={v4()} click={() => onHandleChangeStatus(e)} status2={e.status2} title={e.title} Creator={e.Creator} Description={e.Description}/>
       )
     }
     </div>

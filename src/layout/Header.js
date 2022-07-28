@@ -9,7 +9,7 @@ export default function Header(props) {
         {props.name}
       </Button>
       <div className="w-25">
-        <Search  />
+        <Search reRender={props.reRender}  />
       </div>
     </div>
   );

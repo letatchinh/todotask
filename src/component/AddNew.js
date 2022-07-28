@@ -12,8 +12,7 @@ export default function AddNew(props) {
       props.click2();
     }, [data]);
   const onHandleClickSave = () => {
-    const tempData = [...data,{title,Creator,Description,status2,id : data.length}];
-    setData(tempData);
+   setData([...data,{title,Creator,Description,status2,id : data.length}]);
   }
   const handleChangeTitle = event => {
     setTitle(event.target.value);
