@@ -1,46 +1,79 @@
-import React, { useEffect, useState } from 'react'
-import Textfield from '@atlaskit/textfield';
-import Button from '@atlaskit/button';
-export default function AddNew(props) {
-  const [data,setData] = useState(localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : [])
-  const [title,setTitle] = useState('');
-  const [Creator,setCreator] = useState('');
-  const [Description,setDescription] = useState('');
-  let status2 = "New"
-    useEffect(() => {
-      localStorage.setItem('data', JSON.stringify(data));
-      props.click2();
-    }, [data]);
-  const onHandleClickSave = () => {
-   setData([...data,{title,Creator,Description,status2,id : data.length}]);
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import Textfield from "@atlaskit/textfield";
+import Button from "@atlaskit/button";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+
+function AddNew(props) {
+
+  const notify = () => toast("Thêm Thành công!");
+  const [data, setData] = useState(
+    localStorage.getItem("data") ? JSON.parse(localStorage.getItem("data")) : []
+  );
+  const [title, setTitle] = useState("");
+  const [Creator, setCreator] = useState("");
+  const [Description, setDescription] = useState("");
+    const [valueForm,setValueForm] = useState({
+      title : "" , 
+      creator : "" ,
+      description : "",
+      status2 : "New",
+    });
+  const onChangeChung = (e) => {
+    setValueForm(
+      {
+        ...valueForm,
+        [e.target.name] : e.target.value
+      }
+    )
+    
   }
-  const handleChangeTitle = event => {
+  let history = useNavigate();
+  let status2 = "New";
+  useEffect(() => {
+    localStorage.setItem("data", JSON.stringify(data));
+
+  }, [data]);
+  const onHandleClickSave = () => {
+    setData([...data,{...valueForm,id : data.length}])
+   
+  };
+  const handleChangeTitle = (event) => {
     setTitle(event.target.value);
   };
-  const handleChangeCreator = event => {
+  const handleChangeCreator = (event) => {
     setCreator(event.target.value);
   };
-  const handleChangeDescription = event => {
+  const handleChangeDescription = (event) => {
     setDescription(event.target.value);
   };
+  const onC = () => {
+    onHandleClickSave();
+    props.click2();
+    notify();
+    // history("/");
+  }
   return (
-<div className='mx-auto' style={{display : props.display2}}>
-<div className='d-flex my-2'>
-    <span style={{width : "150px"}}> Title</span><Textfield value={title} onChange={handleChangeTitle}/>
-</div>
-<div className='d-flex my-2'>
-    <span style={{width : "150px"}}>Creator</span><Textfield value={Creator} onChange={handleChangeCreator}/>
-</div>
-<div className='d-flex my-2'>
-    <span style={{width : "150px"}}>Description</span><Textfield value={Description} onChange={handleChangeDescription}/>
-</div>
-{/* <Button  onClick={onHandleClickSave}>Add</Button> */}
-<Button  onClick={() => {
-  props.click();
-  props.click2()
-  onHandleClickSave();
-}}>Add</Button>
-
-</div>
-  )
+    <div className="mx-auto">
+      <div className="d-flex my-2">
+        <span style={{ width: "150px" }}> Title</span>
+        <Textfield name="title" value={valueForm.title} onChange={onChangeChung} />
+      </div>
+      <div className="d-flex my-2">
+        <span style={{ width: "150px" }}>Creator</span>
+        <Textfield name="creator" value={valueForm.creator} onChange={onChangeChung} />
+      </div>
+      <div className="d-flex my-2">
+        <span style={{ width: "150px" }}>Description</span>
+        <Textfield name="description" value={valueForm.description} onChange={onChangeChung} />
+      </div>
+      <Button onClick={onC}>
+        Add
+      </Button>
+      <ToastContainer />
+    </div>
+  );
 }
+
+export default AddNew;

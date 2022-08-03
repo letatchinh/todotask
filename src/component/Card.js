@@ -1,7 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@atlaskit/button';
 
 export default function Card(props) {
+  const [item,setItem] = useState(props.this);
+  const onHandClickChangeStatus = () => {
+console.log(item);
+    switch (item.status2) {
+      case  "Doing":
+        item.status2 = 'Done';
+        break;
+      case  "Done":
+        item.status2 = 'New';
+        break;
+      case  "New":
+        item.status2 = 'Doing';
+        break;
+      default:
+        break;
+    }
+setItem(item);
+props.click();
+ let data =  JSON.parse(localStorage.getItem('data'));
+ data.splice(item.id,1,item);
+ localStorage.setItem('data',JSON.stringify(data))
+ 
+ 
+  }
   const sty = {
     color : (props.status2 === "New") ? "green" : (props.status2 === "Doing") ? "orange" : "blue" 
   }
@@ -11,7 +35,7 @@ export default function Card(props) {
         <p>Creator : {props.Creator}</p>
         <p style={sty}>Status : {props.status2}</p>
         <p>Description :  {props.Description}</p>    
-        <Button onClick={props.click}>{props.status2}</Button>
+        <Button onClick={onHandClickChangeStatus}>{props.status2}</Button>
     </div>
   )
 }
