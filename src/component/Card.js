@@ -3,6 +3,7 @@ import Button from '@atlaskit/button';
 
 export default function Card(props) {
   const [item,setItem] = useState(props.this);
+  console.log("this",props.this);
   const onHandClickChangeStatus = () => {
 console.log(item);
     switch (item.status2) {

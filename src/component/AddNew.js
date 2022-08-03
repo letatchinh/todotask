@@ -3,17 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import Textfield from "@atlaskit/textfield";
 import Button from "@atlaskit/button";
 import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
-
+import 'react-toastify/dist/ReactToastify.css';
 function AddNew(props) {
-
   const notify = () => toast("Thêm Thành công!");
+  let navigate = useNavigate();
   const [data, setData] = useState(
     localStorage.getItem("data") ? JSON.parse(localStorage.getItem("data")) : []
   );
-  const [title, setTitle] = useState("");
-  const [Creator, setCreator] = useState("");
-  const [Description, setDescription] = useState("");
     const [valueForm,setValueForm] = useState({
       title : "" , 
       creator : "" ,
@@ -21,38 +17,28 @@ function AddNew(props) {
       status2 : "New",
     });
   const onChangeChung = (e) => {
+    // console.log({...valueForm});
     setValueForm(
       {
         ...valueForm,
         [e.target.name] : e.target.value
       }
     )
-    
   }
-  let history = useNavigate();
-  let status2 = "New";
+
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(data));
-
   }, [data]);
   const onHandleClickSave = () => {
-    setData([...data,{...valueForm,id : data.length}])
-   
-  };
-  const handleChangeTitle = (event) => {
-    setTitle(event.target.value);
-  };
-  const handleChangeCreator = (event) => {
-    setCreator(event.target.value);
-  };
-  const handleChangeDescription = (event) => {
-    setDescription(event.target.value);
-  };
-  const onC = () => {
-    onHandleClickSave();
+    valueForm.id = data.length
+    setData([...data,valueForm])
+    console.log(valueForm);
+  }
+  const onC = async() => {
+   await onHandleClickSave();
     props.click2();
     notify();
-    // history("/");
+    navigate("/");
   }
   return (
     <div className="mx-auto">
