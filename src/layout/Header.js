@@ -15,7 +15,7 @@ export default function Header(props) {
        {ten}
        </Button></Link>
       <div className="w-25">
-        <Search reRender={props.reRender}  />
+        <Search search={props.search} reRender={props.reRender}  />
       </div>
     
     </div>

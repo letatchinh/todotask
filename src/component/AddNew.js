@@ -6,10 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function AddNew(props) {
   const notify = () => toast("Thêm Thành công!");
+  console.log("ok");
   let navigate = useNavigate();
-  const [data, setData] = useState(
-    localStorage.getItem("data") ? JSON.parse(localStorage.getItem("data")) : []
-  );
+  const [data, setData] = useState(JSON.parse(localStorage.getItem("data")) || [])
     const [valueForm,setValueForm] = useState({
       title : "" , 
       creator : "" ,
@@ -27,13 +26,13 @@ function AddNew(props) {
   }
 
   useEffect(() => {
+
     localStorage.setItem("data", JSON.stringify(data));
     console.log("rerender");
   }, [data]);
   const onHandleClickSave = () => {
     valueForm.id = data.length
     setData([...data,valueForm])
-    console.log(valueForm);
   }
   const onC = async() => {
    await onHandleClickSave();

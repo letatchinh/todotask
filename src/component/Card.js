@@ -3,6 +3,7 @@ import Button from '@atlaskit/button';
 
 export default function Card(props) {
   const [item,setItem] = useState(props.this);
+  const [stt,setStt] = useState(true)
   let data = JSON.parse(localStorage.getItem('data'))
   const  onHandClickChangeStatus = () => {
 console.log(item);
@@ -23,10 +24,8 @@ console.log(item);
  let data2 =  JSON.parse(localStorage.getItem('data'));
  data2.splice(item.id,1,item);
  localStorage.setItem('data',JSON.stringify(data2));
- localStorage.setItem("dataNew",JSON.stringify(data.filter((e) => e.status2 === "New")));
- localStorage.setItem("dataDoing",JSON.stringify(data.filter((e) => e.status2 === "Doing")));
- localStorage.setItem("dataDone",JSON.stringify(data.filter((e) => e.status2 === "Done")));
  props.click();
+setStt(!stt);
   }
   const sty = {
     color : (props.status2 === "New") ? "green" : (props.status2 === "Doing") ? "orange" : "blue" 
