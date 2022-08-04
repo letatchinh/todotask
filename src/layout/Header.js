@@ -7,7 +7,7 @@ export default function Header(props) {
   const [ten,setTen] = useState("Create Task");
   const change = () => {
     setStatus(!status);
-   ten === "Back" ?  setTen("Create Task") :  setTen("Back")
+   ten === "Back" ?  setTen("Create Task New") :  setTen("Back")
   }
   return (
     <div className="bg-primary d-flex justify-content-between">

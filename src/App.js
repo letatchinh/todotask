@@ -5,13 +5,12 @@ import Header from './layout/Header';
 function App() {
   const [status , setStatus] = useState(true);
   const [status2 , setStatus2] = useState(true);
-  const [name , setName] = useState('Create New Task');
   const reRender = () => {
     setStatus2(!status2)
   }
   return (
    <>
-<Header name={name} reRender={reRender} 
+<Header reRender={reRender} 
 />
 <Body 
   status = {status}/>

@@ -28,6 +28,7 @@ function AddNew(props) {
 
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(data));
+    console.log("rerender");
   }, [data]);
   const onHandleClickSave = () => {
     valueForm.id = data.length
@@ -38,7 +39,7 @@ function AddNew(props) {
    await onHandleClickSave();
     props.click2();
     notify();
-    navigate("/");
+    navigate("/todotask");
   }
   return (
     <div className="mx-auto">
