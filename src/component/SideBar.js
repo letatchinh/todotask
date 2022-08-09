@@ -7,10 +7,10 @@ export default function SideBar(props) {
     }
   return (
     <>
-        <Link to="/todotask"><Button   appearance="warning" shouldFitContainer>All Task</Button></Link>
-        <Link to="datanew"><Button onClick={handleSaveDataNew} appearance="warning" shouldFitContainer>New Task</Button></Link>
-        <Link to="datadoing"><Button onClick={handleSaveDataNew} appearance="warning" shouldFitContainer>Doing Task</Button></Link>
-        <Link to="datadone"><Button onClick={handleSaveDataNew} appearance="warning" shouldFitContainer>Done Task</Button></Link>
+        <Link to="/todotask/todotask/1"><Button   appearance="warning" shouldFitContainer>All Task</Button></Link>
+        <Link to="/datanew/datanew/1"><Button onClick={handleSaveDataNew} appearance="warning" shouldFitContainer>New Task</Button></Link>
+        <Link to="/datadoing/datadoing/1"><Button onClick={handleSaveDataNew} appearance="warning" shouldFitContainer>Doing Task</Button></Link>
+        <Link to="/datadone/datadone/1"><Button onClick={handleSaveDataNew} appearance="warning" shouldFitContainer>Done Task</Button></Link>
         
     </>
   )

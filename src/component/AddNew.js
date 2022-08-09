@@ -4,6 +4,8 @@ import Textfield from "@atlaskit/textfield";
 import Button from "@atlaskit/button";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { v4 } from 'uuid';
+
 function AddNew(props) {
   const notify = () => toast("Thêm Thành công!");
   console.log("ok");
@@ -16,7 +18,6 @@ function AddNew(props) {
       status2 : "New",
     });
   const onChangeChung = (e) => {
-    // console.log({...valueForm});
     setValueForm(
       {
         ...valueForm,
@@ -28,7 +29,6 @@ function AddNew(props) {
   useEffect(() => {
 
     localStorage.setItem("data", JSON.stringify(data));
-    console.log("rerender");
   }, [data]);
   const onHandleClickSave = () => {
     valueForm.id = data.length
@@ -38,7 +38,7 @@ function AddNew(props) {
    await onHandleClickSave();
     props.click2();
     notify();
-    navigate("/todotask");
+    navigate("/todotask/todotask/1");
   }
   return (
     <div className="mx-auto">

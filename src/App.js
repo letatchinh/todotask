@@ -8,8 +8,6 @@ function App() {
   const [status2 , setStatus2] = useState(true);
   let navigate = useNavigate();
   const [data,setData] = useState(JSON.parse(localStorage.getItem('data'))|| [])
-  // const [dataCoding,setDataCo] = useState(JSON.parse(localStorage.getItem('data'))|| [])
- 
   const reRender = () => {
     setStatus2(!status2);
     setData(JSON.parse(localStorage.getItem('data'))|| []);
