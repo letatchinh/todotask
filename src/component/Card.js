@@ -1,21 +1,22 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import Button from '@atlaskit/button';
 
+import 'react-toastify/dist/ReactToastify.css';
 export default function Card(props) {
   const [item,setItem] = useState(props.this);
-  const [stt,setStt] = useState(true)
-  let data = JSON.parse(localStorage.getItem('data'))
   const  onHandClickChangeStatus = () => {
-console.log(item);
     switch (item.status2) {
       case  "Doing":
         item.status2 = 'Done';
+
         break;
       case  "Done":
         item.status2 = 'New';
+
         break;
       case  "New":
         item.status2 = 'Doing';
+
         break;
       default:
         break;
@@ -24,8 +25,8 @@ console.log(item);
  let data2 =  JSON.parse(localStorage.getItem('data'));
  data2.splice(item.id,1,item);
  localStorage.setItem('data',JSON.stringify(data2));
- props.click();
-setStt(!stt);
+props.click()
+
   }
   const sty = {
     color : (props.status2 === "New") ? "green" : (props.status2 === "Doing") ? "orange" : "blue" 
@@ -37,6 +38,7 @@ setStt(!stt);
         <p style={sty}>Status : {props.status2}</p>
         <p>Description :  {props.Description}</p>    
         <Button onClick={onHandClickChangeStatus}>{props.status2}</Button>
+       
     </div>
   )
 }

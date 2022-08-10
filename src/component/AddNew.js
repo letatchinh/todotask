@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Textfield from "@atlaskit/textfield";
 import Button from "@atlaskit/button";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { TestContext } from "../App";
 function AddNew(props) {
-  const notify = () => toast("Thêm Thành công!");
-  console.log("ok");
+  const value = useContext(TestContext)
   let navigate = useNavigate();
   const [data, setData] = useState(JSON.parse(localStorage.getItem("data")) || [])
     const [valueForm,setValueForm] = useState({
@@ -34,8 +32,7 @@ function AddNew(props) {
   }
   const onC = async() => {
    await onHandleClickSave();
-    props.click2();
-    notify();
+   value.reRender();
     navigate("/todotask/todotask/1");
   }
   return (
@@ -55,7 +52,6 @@ function AddNew(props) {
       <Button onClick={onC}>
         Add
       </Button>
-      <ToastContainer />
     </div>
   );
 }

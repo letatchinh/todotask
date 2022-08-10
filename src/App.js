@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import './App.css';
 import Body from './layout/Body';
 import Header from './layout/Header';
 import { useNavigate } from 'react-router-dom';
+export const TestContext = createContext();
 function App() {
-  const [status , setStatus] = useState(true);
   const [status2 , setStatus2] = useState(true);
   const [dataSearch , setDataSearch] = useState([]);
   let navigate = useNavigate();
@@ -19,11 +19,18 @@ function App() {
     setDataSearch(dataTemp);
     navigate("/datasearch/datasearch/1")
   }
+  const value = {
+    onSearch,
+    reRender,
+    data,
+    dataSearch,
+  }
   return (
    <>
-<Header search={onSearch} reRender={reRender} />
-<Body reRender={reRender} data={data} dataSearch={dataSearch}
-  status = {status}/>
+<TestContext.Provider value={value}>
+<Header />
+<Body data={data}/>
+</TestContext.Provider>
    </>
   );
 }

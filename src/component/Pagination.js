@@ -13,28 +13,34 @@ export default function Pagination(props) {
     },[active,props.data]);
   return (
     <div style={(props.data.length > 1 ) ? {display : "inline-block"} : {display : "none"}}>
+  {/* Button First */}
      <Link to={`${props.page}/${1}`}>
     <Button 
     isDisabled={active === 1}
      onClick={() => setActive(1)}>First</Button>
      </Link>
+{/* Button Pre */}
     <Link to={`${props.page}/${active-1}`}><Button 
      isDisabled = {active === 1} 
       onClick={() => setActive(active-1)}>Pre</Button>
       </Link>
+
     {
         limitPage.map(e => <Link key={v4()} to={`${props.page}/${e}`}> <Button  onClick={() => setActive(e)}  isSelected={active === e}  key={v4()}>{e}</Button></Link>)
     }
+{/* Button Next */}
     <Link to={`${props.page}/${active+1}`}>
     <Button 
     isDisabled={active === props.data.length}
      onClick={() => setActive(active+1)}>Next {active}/{props.data.length}</Button>
      </Link>
+{/* Button Last */}
      <Link to={`${props.page}/${props.data.length}`}>
     <Button 
     isDisabled={active === props.data.length}
      onClick={() => setActive(props.data.length)}>Last</Button>
      </Link>
+
     </div>
   )
 }
