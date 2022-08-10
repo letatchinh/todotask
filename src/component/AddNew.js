@@ -4,8 +4,6 @@ import Textfield from "@atlaskit/textfield";
 import Button from "@atlaskit/button";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { v4 } from 'uuid';
-
 function AddNew(props) {
   const notify = () => toast("Thêm Thành công!");
   console.log("ok");
