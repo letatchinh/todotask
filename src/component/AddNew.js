@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import Textfield from "@atlaskit/textfield";
 import Button from "@atlaskit/button";
 import { TestContext } from "../App";
-function AddNew(props) {
+import {URL} from '../Constant'
+import axios from "axios";
+function AddNew() {
   const value = useContext(TestContext)
   let navigate = useNavigate();
-  const [data, setData] = useState(JSON.parse(localStorage.getItem("data")) || [])
     const [valueForm,setValueForm] = useState({
       title : "" , 
       creator : "" ,
@@ -21,14 +22,9 @@ function AddNew(props) {
       }
     )
   }
-
-  useEffect(() => {
-
-    localStorage.setItem("data", JSON.stringify(data));
-  }, [data]);
   const onHandleClickSave = () => {
-    valueForm.id = data.length
-    setData([...data,valueForm])
+    axios.post(URL,valueForm);
+    value.fecthData()
   }
   const onC = async() => {
    await onHandleClickSave();
@@ -36,7 +32,8 @@ function AddNew(props) {
     navigate("/todotask/todotask/1");
   }
   return (
-    <div className="mx-auto">
+ <form onSubmit={onC} className="mx-auto">
+    
       <div className="d-flex my-2">
         <span style={{ width: "150px" }}> Title</span>
         <Textfield name="title" value={valueForm.title} onChange={onChangeChung} />
@@ -49,10 +46,11 @@ function AddNew(props) {
         <span style={{ width: "150px" }}>Description</span>
         <Textfield name="description" value={valueForm.description} onChange={onChangeChung} />
       </div>
-      <Button onClick={onC}>
+      <Button type="submit" >
         Add
       </Button>
-    </div>
+  
+ </form>
   );
 }
 

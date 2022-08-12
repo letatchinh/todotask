@@ -9,7 +9,6 @@ export default function Body(props) {
   const [data,setData] = useState(props.data);
   useEffect(() => {
     setData(props.data);
-    console.log(props.data);
   },[props.data]);
 
   const notify = () => setRender(!render);

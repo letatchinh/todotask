@@ -1,8 +1,11 @@
-import React, {  useState } from 'react'
+import React, {  useContext, useState } from 'react'
 import Button from '@atlaskit/button';
-
+import {URL} from '../Constant'
 import 'react-toastify/dist/ReactToastify.css';
+import { TestContext } from '../App';
+import axios from 'axios';
 export default function Card(props) {
+  const value = useContext(TestContext);
   const [item,setItem] = useState(props.this);
   const  onHandClickChangeStatus = () => {
     switch (item.status2) {
@@ -22,11 +25,15 @@ export default function Card(props) {
         break;
     }
  setItem(item);
- let data2 =  JSON.parse(localStorage.getItem('data'));
- data2.splice(item.id,1,item);
- localStorage.setItem('data',JSON.stringify(data2));
-props.click()
-
+    axios.put(`${URL}/${item.id}`,item)
+    props.click();
+  }
+  const deleteItem = async() => {
+ await axios.delete(`${URL}/${item.id}`);
+  value.setData2(value.data.filter((items) => items.id !== item.id))
+    // value.setData2();
+    console.log("data sau khi xoa",value.data);
+    props.click();
   }
   const sty = {
     color : (props.status2 === "New") ? "green" : (props.status2 === "Doing") ? "orange" : "blue" 
@@ -37,8 +44,8 @@ props.click()
         <p>Creator : {props.Creator}</p>
         <p style={sty}>Status : {props.status2}</p>
         <p>Description :  {props.Description}</p>    
-        <Button onClick={onHandClickChangeStatus}>{props.status2}</Button>
-       
+        <Button appearance='primary' onClick={onHandClickChangeStatus}>{props.status2}</Button>
+       <Button appearance='danger' onClick={deleteItem}>Delete</Button>
     </div>
   )
 }
